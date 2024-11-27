@@ -27,41 +27,17 @@ const NavbarLayout = () => {
     const [logout, { data, isLoading }] = useLazyLogoutQuery();
     const handlelogout = () => {
         try {
-            axios.get('http://localhost:5000/api/user/logout', {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(() => {
-                setTimeout(() => {
-                    console.log("hhh");
-                    document.cookie = '';
-                    const fetchUser = async () => {
-                        try {
-                            const { data } = await axios.get('http://localhost:5000/api/user/protected', {
-                                withCredentials: true,
-                            });
-                            startTransition(() => {
-                                dispatch(userExists(data.user));
-                                // Set initialized to true after fetching user data
-                            });
-                        } catch (error) {
-                            startTransition(() => {
-                                dispatch(userNotExits());
-                                // Set initialized to true even if there's an error
-                            });
-                        }
-                    };
-                    fetchUser();
-                    navigate('/login');
-                }, 1000);
-            });
+            localStorage.clear("token")
+            localStorage.clear("user")
+                    dispatch(userNotExits());
+                    
+                
             // Redirect to login page after logout
 
 
         } catch (error) {
-             console.log(error);
-             
+            console.log(error);
+
         }
     }
 
@@ -91,7 +67,7 @@ const NavbarLayout = () => {
 
                             { title: "Chat", Icon: CommentIcon, path: "" },
                             { title: "Group", Icon: Group, path: "Groups" },
-                            { title: "Calls", Icon:Call, path: "call" },
+                            { title: "Calls", Icon: Call, path: "call" },
                             { title: "Profile", Icon: AccountCircle, path: "profile" },
 
                         ].map(({ title, Icon, path }) => (

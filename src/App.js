@@ -10,6 +10,7 @@ import { SocketProvider } from './Auth/Socket';
 import DynamicSnackbar from './shared/DynamicSnackbar';
 import CallDailog from './specific/CallDailog';
 import Speednavbar from './specific/Speednavbar';
+import GoogleCallback from './Auth/GoogleCallback';
 // import { Login } from '@mui/icons-material';
 
 // Lazy load components
@@ -28,25 +29,54 @@ function App() {
   const [initialized, setInitialized] = useState(false);
 
 
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //        const { data } = await axios.get('https://chat-backend-orpin-xi.vercel.app/api/user/protected', {
+  //         withCredentials: true,
+  //        });
+  //       startTransition(() => {
+  //         dispatch(userExists(data.user));
+  //         setInitialized(true); // Set initialized to true after fetching user data
+  //       });
+  //     } catch (error) {
+  //       startTransition(() => {
+  //         dispatch(userNotExits());
+  //         setInitialized(true); // Set initialized to true even if there's an error
+  //       });
+  //     }
+  //   };
+  //   fetchUser();
+  // }, [dispatch]);
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/user/protected', {
-          withCredentials: true,
+        // Get the token from localStorage
+        const token = localStorage.getItem('token');
+        // If token exists, make the request with Authorization header
+        const { data } = await axios.get('https://chat-backend-orpin-xi.vercel.app/api/user/protected', {
+          headers: {
+            'Authorization': `Bearer ${token}`  // Include the token in the Authorization header
+        }
         });
+  
+        // Dispatch the user data if available
         startTransition(() => {
           dispatch(userExists(data.user));
           setInitialized(true); // Set initialized to true after fetching user data
         });
       } catch (error) {
+        // If there's an error (e.g. token is invalid or expired), dispatch userNotExists
         startTransition(() => {
           dispatch(userNotExits());
           setInitialized(true); // Set initialized to true even if there's an error
         });
       }
     };
+  
     fetchUser();
   }, [dispatch]);
+  
 
 
   if (!initialized) {
@@ -82,6 +112,7 @@ function App() {
 
               {/* Public and fallback routes */}
               <Route path='/login' element={<Auth redirect='/' user={!user}><Login /></Auth>} />
+              <Route path="/google/callback" element={<GoogleCallback/>} />
               <Route path='*' element={<Notfound />} />
 
             </Routes>

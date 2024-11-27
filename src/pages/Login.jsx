@@ -46,58 +46,116 @@ const Login = () => {
     const handleToggle = () => {
         setIsLogin(!isLogin);
     };
+    // api/user/google
 
     const handleGoogleLogin = () => {
-        window.location.href = 'http://localhost:5000/api/user/google'; // This URL should point to your backend Google auth route
+        window.location.href = 'https://chat-backend-orpin-xi.vercel.app/api/user/google'; // This URL should point to your backend Google auth route
     };
+    // Example of handling the login in your frontend (React, for instance)
 
+
+
+    // const handleLogin = async (e) => {
+    //     setisLoading(true)
+
+    //     e.preventDefault();
+    //     try {
+    //         const { data } = await axios.post(`https://chat-backend-orpin-xi.vercel.app/api/user/login`, {
+    //             email: username.value,
+    //             password: password.value
+    //         }, {
+    //             withCredentials: true,
+    //             headers: {
+    //                 "Content-Type": "application/json"
+    //             }
+    //         });
+    //         // console.log('API Response:', data); // Log the full response
+
+    //         if (data.user) {
+
+    //             dispatch(userExists(data.user));
+    //             dispatch(
+    //                 showSnackbar({
+    //                     message: data.message,
+    //                     severity: 'success',
+    //                 })
+    //             );
+    //             console.count(6)
+    //         } else {
+    //             throw new Error('User data is missing in response');
+    //         }
+
+    //     } catch (error) {
+    //         console.log(error);
+
+    //         const errorMessage = error?.response?.data?.error?.message || "Something went wrong";
+
+    //         // toast.error(errorMessage,{
+    //         //     id:toastid
+    //         // });
+    //         dispatch(showSnackbar({
+    //             message: errorMessage,
+    //             severity: "error"
+    //         }))
+    //     }
+    //     finally {
+    //         setisLoading(false)
+    //     }
+    // }
     const handleLogin = async (e) => {
-        setisLoading(true)
-
+        setisLoading(true);
         e.preventDefault();
+
         try {
-            const { data } = await axios.post(`http://localhost:5000/api/user/login`, {
+            const { data } = await axios.post(`https://chat-backend-orpin-xi.vercel.app/api/user/login`, {
                 email: username.value,
-                password: password.value
+                password: password.value,
             }, {
-                withCredentials: true,
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 }
             });
-            // console.log('API Response:', data); // Log the full response
 
-            if (data.user) {
+            // Log the API response for debugging
+            console.log('API Response:', data);
 
-                dispatch(userExists(data.user));
-                dispatch(
-                    showSnackbar({
-                        message: data.message,
-                        severity: 'success',
-                    })
-                );
-                console.count(6)
+            if (data.token) {
+                // Store the JWT token in localStorage
+                localStorage.setItem('token', data.token);
+
+                // Optionally, store user information as well
+                if (data.user) {
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    dispatch(userExists(data.user));
+                }
+
+                // Dispatch success message
+                dispatch(showSnackbar({
+                    message: data.message,
+                    severity: 'success',
+                }));
+
+                console.count(6); // Debugging log
             } else {
-                throw new Error('User data is missing in response');
+                throw new Error('Token missing in response');
             }
 
         } catch (error) {
             console.log(error);
 
+            // Handle error messages (with response or default message)
             const errorMessage = error?.response?.data?.error?.message || "Something went wrong";
 
-            // toast.error(errorMessage,{
-            //     id:toastid
-            // });
+            // Display error snackbar
             dispatch(showSnackbar({
                 message: errorMessage,
-                severity: "error"
-            }))
+                severity: 'error',
+            }));
+        } finally {
+            setisLoading(false);
         }
-        finally {
-            setisLoading(false)
-        }
-    }
+    };
+
     const handleSignUp = async (e) => {
         setisLoading(true)
         dispatch(
@@ -114,19 +172,22 @@ const Login = () => {
         formData.append("username", username.value);
         formData.append("password", password.value);
         try {
-            const { data } = await axios.post(`http://localhost:5000/api/user/register`, formData, {
+            const { data } = await axios.post(`https://chat-backend-orpin-xi.vercel.app/api/user/register`, formData, {
                 withCredentials: true,
                 headers: {
                     "Content-Type": "application/json",
                 }
             });
-            dispatch(userExists(data.user));
-            dispatch(
-                showSnackbar({
-                    message: "Created",
-                    severity: 'success',
-                })
-            );
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                dispatch(userExists(data.user));
+                dispatch(
+                    showSnackbar({
+                        message: "Created",
+                        severity: 'success',
+                    })
+                );
+            }
 
         } catch (error) {
             console.log(error);
@@ -224,7 +285,7 @@ const Login = () => {
                                 style={{ height: '100%' }}
                             >
                                 <FormCard>
-                                    <Stack direction="column" justifyContent="center" spacing={2} marginY={"6rem"} sx={{ height: '100%',minHeight:"100%"  }}>
+                                    <Stack direction="column" justifyContent="center" spacing={2} marginY={"6rem"} sx={{ height: '100%', minHeight: "100%" }}>
                                         <Stack alignItems={"center"} justifyContent={"center"} sx={{ backgroundColor: "white", ":hover": { bgcolor: "rgba(255,255,255,0.7)" } }}>
                                             <Avatar sx={{ width: "5rem", height: "5rem", objectFit: "contain" }} />
                                         </Stack>

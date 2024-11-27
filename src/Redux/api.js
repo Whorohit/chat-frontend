@@ -1,10 +1,10 @@
 // api.js
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
+const token = localStorage.getItem('token');
 const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:5000/',
+        baseUrl: 'https://chat-backend-orpin-xi.vercel.app/',
     }),
     tagTypes: ['Chat', 'User', 'Message'],
     endpoints: (builder) => ({
@@ -12,6 +12,9 @@ const api = createApi({
             query: () => ({
                 url: 'api/user/friendlist',
                 credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include token in Authorization header
+                  },
             }),
             providesTags: ['User'],
         }),
@@ -19,6 +22,9 @@ const api = createApi({
             query: (name) => ({
                 url: `api/user/search?name=${name}`,
                 credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include token in Authorization header
+                  },
             }),
             providesTags: ['User'],
         }),
@@ -39,6 +45,9 @@ const api = createApi({
                     url: `api/chat/newgroup`,
                     method: "POST",
                     credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                     body: formData,
                 };
             },
@@ -48,6 +57,9 @@ const api = createApi({
             query: () => ({
                 url: `api/chat/getmychats`,
                 credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include token in Authorization header
+                  },
             }),
             providesTags: ['User'],
         }),
@@ -62,6 +74,9 @@ const api = createApi({
 
                     url: url,
                     credentials: 'include',
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
 
                 }
             },
@@ -74,6 +89,7 @@ const api = createApi({
                 body: { page, limit: 20 },
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
                 },
                 credentials: 'include',
             }),
@@ -86,6 +102,9 @@ const api = createApi({
                 method: "POST",
                 body: data,
                 credentials: "include",
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include token in Authorization header
+                  },
 
             }),
             invalidatesTags: ["Chat"]
@@ -94,6 +113,9 @@ const api = createApi({
             query: (id) => ({
                 url: `api/user/viewprofile/${id}`,
                 credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include token in Authorization header
+                  },
             }),
             providesTags: ['User'],
         }),
@@ -101,6 +123,9 @@ const api = createApi({
             query: (id) => ({
                 url: `api/chat/getmygroups`,
                 credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include token in Authorization header
+                  },
             }),
             providesTags: ['Chat'],
         }),
@@ -113,6 +138,9 @@ const api = createApi({
                     method: "PUT",
                     credentials: "include",
                     body: data,
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                 }
 
             },
@@ -126,6 +154,9 @@ const api = createApi({
                     url: `api/chat/removemember`,
                     method: "DELETE",
                     credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                     body: { chatid: chatId, userid: userId },
                 }
             },
@@ -141,6 +172,9 @@ const api = createApi({
                     url: `api/chat/addmembers`,
                     method: "PUT",
                     credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                     body: { chatid: chatId, newmembers: member },
                 }
             },
@@ -154,6 +188,9 @@ const api = createApi({
                     url: `api/chat/changeadmins`,
                     method: "PUT",
                     credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                     body: { chatid: chatId, userid: userId, add },
                 }
             },
@@ -167,6 +204,9 @@ const api = createApi({
                     url: `api/chat/leave/${chatId}`,
                     method: "DELETE",
                     credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                 }
             },
             invalidatesTags: ["Chat"]
@@ -175,6 +215,9 @@ const api = createApi({
             query: () => ({
                 url: `api/user/myprofile`,
                 credentials: 'include',
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include token in Authorization header
+                  },
             }),
             providesTags: ['User'],
         }),
@@ -186,6 +229,9 @@ const api = createApi({
                     url: `api/user/editinfo`,
                     method: "PUT",
                     credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                     body: data,
                 }
 
@@ -201,6 +247,9 @@ const api = createApi({
                     url: `api/user/changepassword`,
                     method: "PUT",
                     credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                     body: data,
                 }
 
@@ -214,6 +263,9 @@ const api = createApi({
                     url: `api/user/sendrequest`,
                     method: "POST",
                     credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                     body: { reqid: reqid },
                 }
 
@@ -227,6 +279,9 @@ const api = createApi({
                     url: `api/user/getallnotification`,
                     method: "GET",
                     credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                 }
 
             },
@@ -240,6 +295,9 @@ const api = createApi({
                     url: `api/user/acceptrequest`,
                     method: "POST",
                     credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                     body: { requestid: reqid, accept: accept },
                 }
 
@@ -253,6 +311,9 @@ const api = createApi({
                     url: `api/user/removenotifications`,
                     method: "DELETE",
                     credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                     body: { notificatonid: reqid },
                 }
 
@@ -277,6 +338,9 @@ const api = createApi({
                 return {
                     url: `api/chat/getallcall`,
                     method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Include token in Authorization header
+                      },
                     credentials: "include",
                 }
 

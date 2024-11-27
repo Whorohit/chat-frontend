@@ -228,7 +228,7 @@ const Applayout = (WrappedComponent) => {
             })
             socket.on('busy', (data) => {
                 console.log(data);
-               
+
                 if (localStream.current) {
                     localStream.current.getTracks().forEach((track) => track.stop());
                 }
