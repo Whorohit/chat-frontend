@@ -6,8 +6,8 @@ const SocketContext = createContext();
 const SocketProvider = ({ children }) => {
   const socket = useMemo(
     () =>
-      io("http://localhost:5000", {
-        withCredentials: true,
+      io("https://chat-backend-orpin-xi.vercel.app", {
+  
         auth: { token: localStorage.getItem('token') }
         
       }),
@@ -15,6 +15,7 @@ const SocketProvider = ({ children }) => {
   );
   const peerconnection = useRef(null);
   const localref = useRef(null);
+  
   const remoteref = useRef(null);
   const localStream = useRef(null);
   const [from, setfrom] = useState(null)
