@@ -446,7 +446,7 @@ const Chat = ({ user, chatId, newmessagesAlert }) => {
             type="text"
             value={message}
             onChange={messagewriteHandler}
-            className="basis-[83%] h-full px-1 py-5 text-xl outline-none border-none"
+            className="basis-[80%] h-full px-1 py-5 text-xl outline-none border-none"
           />
           <SentimentVerySatisfiedIcon
             className="basis-[5%] text-gray-400 hover:text-gray-700 font-semibold"
