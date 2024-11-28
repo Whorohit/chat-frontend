@@ -87,6 +87,7 @@ const Chat = ({ user, chatId, newmessagesAlert }) => {
       peerconnection.current = new RTCPeerConnection(iceServers);
       stream.getTracks().forEach((track) => peerconnection.current.addTrack(track, stream));
       peerconnection.current.ontrack = (event) => {
+        // console.log("Remote track added:", event.streams[0]);
         remoteref.current.srcObject = event.streams[0];
         // dispatch(setremoteref(event.streams[0]));
       };
@@ -446,13 +447,19 @@ const Chat = ({ user, chatId, newmessagesAlert }) => {
             type="text"
             value={message}
             onChange={messagewriteHandler}
-            className="basis-[70%] h-full px-1 py-5 text-xl outline-none border-none"
+            className="basis-[75%] h-full px-1 py-5 text-xl outline-none border-none"
           />
           <SentimentVerySatisfiedIcon
             className="basis-[5%] text-gray-400 hover:text-gray-700 font-semibold"
             onClick={(event) => {
               // setpicker(!picker)
               setAnchorEl(event.currentTarget)
+            }}
+            sx={{
+              fontSize:{
+                md:"1rem",
+                sm:".5rem"
+              }
             }}
           />
           <IconButton
@@ -462,6 +469,10 @@ const Chat = ({ user, chatId, newmessagesAlert }) => {
               flexBasis: "5%",
               '&:hover': {
                 backgroundColor: "#4b46d7",
+              },
+              fontSize:{
+                md:"1rem",
+                sm:".5rem"
               }
             }}
             onClick={handleFormSubmit}

@@ -52,11 +52,11 @@ const CallDialog = () => {
     return (
         <Dialog open={isCallbox} maxWidth={'xl'}>
             <Box className="flex items-center gap-1 flex-col md:flex-row p-2   ">
-                <Card sx={{ minWidth: 400, maxWidth: 400, minHeight: "100%" }} className='h-full'>
+                <Card sx={{ minWidth: 400, maxWidth: 400, height: '20rem'  }} className='h-full'>
                     <CardMedia
                         component="video"
                         autoPlay
-                        muted
+                       
                         loop
                         sx={{
                             minHeight: { sm: "15rem", md: '20rem' },
@@ -72,11 +72,11 @@ const CallDialog = () => {
                     </Typography>
 
                 </Card>
-                <Card sx={{ minWidth: 400, maxWidth: 400 }}>
+                <Card sx={{ minWidth: 400, maxWidth: 400 ,height: '20rem' }}>
                     <CardMedia
                         component="video"
                         autoPlay
-                        muted
+                        
                         loop
                         sx={{
                             minHeight: { sm: "15rem", md: '20rem' },
