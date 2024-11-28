@@ -8,14 +8,14 @@ const SocketProvider = ({ children }) => {
     () =>
       io("https://chat-backend-orpin-xi.vercel.app", {
   
-        auth: { token: localStorage.getItem('token') }
-        
+        auth: { token: localStorage.getItem('token') },
+        transports: ["websocket"],
       }),
     []
   );
   const peerconnection = useRef(null);
   const localref = useRef(null);
-  
+
   const remoteref = useRef(null);
   const localStream = useRef(null);
   const [from, setfrom] = useState(null)
