@@ -32,7 +32,7 @@ function App() {
   // useEffect(() => {
   //   const fetchUser = async () => {
   //     try {
-  //        const { data } = await axios.get('https://chat-backend-orpin-xi.vercel.app/api/user/protected', {
+  //        const { data } = await axios.get('https://chat-backend-wd15.onrender.com/api/user/protected', {
   //         withCredentials: true,
   //        });
   //       startTransition(() => {
@@ -54,7 +54,7 @@ function App() {
         // Get the token from localStorage
         const token = localStorage.getItem('token');
         // If token exists, make the request with Authorization header
-        const { data } = await axios.get('https://chat-backend-orpin-xi.vercel.app/api/user/protected', {
+        const { data } = await axios.get('https://chat-backend-wd15.onrender.com/api/user/protected', {
           headers: {
             'Authorization': `Bearer ${token}`  // Include the token in the Authorization header
         }

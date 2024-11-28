@@ -6,10 +6,10 @@ const SocketContext = createContext();
 const SocketProvider = ({ children }) => {
   const socket = useMemo(
     () =>
-      io("https://chat-backend-orpin-xi.vercel.app", {
+      io("https://chat-backend-wd15.onrender.com", {
   
         auth: { token: localStorage.getItem('token') },
-        transports: ["websocket"],
+        // transports: ["websocket"],
       }),
     []
   );

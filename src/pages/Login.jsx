@@ -49,7 +49,7 @@ const Login = () => {
     // api/user/google
 
     const handleGoogleLogin = () => {
-        window.location.href = 'https://chat-backend-orpin-xi.vercel.app/api/user/google'; // This URL should point to your backend Google auth route
+        window.location.href = 'https://chat-backend-wd15.onrender.com/api/user/google'; // This URL should point to your backend Google auth route
     };
     // Example of handling the login in your frontend (React, for instance)
 
@@ -60,7 +60,7 @@ const Login = () => {
 
     //     e.preventDefault();
     //     try {
-    //         const { data } = await axios.post(`https://chat-backend-orpin-xi.vercel.app/api/user/login`, {
+    //         const { data } = await axios.post(`https://chat-backend-wd15.onrender.com/api/user/login`, {
     //             email: username.value,
     //             password: password.value
     //         }, {
@@ -107,7 +107,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const { data } = await axios.post(`https://chat-backend-orpin-xi.vercel.app/api/user/login`, {
+            const { data } = await axios.post(`https://chat-backend-wd15.onrender.com/api/user/login`, {
                 email: username.value,
                 password: password.value,
             }, {
@@ -172,7 +172,7 @@ const Login = () => {
         formData.append("username", username.value);
         formData.append("password", password.value);
         try {
-            const { data } = await axios.post(`https://chat-backend-orpin-xi.vercel.app/api/user/register`, formData, {
+            const { data } = await axios.post(`https://chat-backend-wd15.onrender.com/api/user/register`, formData, {
                 withCredentials: true,
                 headers: {
                     "Content-Type": "application/json",

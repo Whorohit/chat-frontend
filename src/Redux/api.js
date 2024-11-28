@@ -4,7 +4,7 @@ const token = localStorage.getItem('token');
 const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://chat-backend-orpin-xi.vercel.app/',
+        baseUrl: 'https://chat-backend-wd15.onrender.com/',
     }),
     tagTypes: ['Chat', 'User', 'Message'],
     endpoints: (builder) => ({
